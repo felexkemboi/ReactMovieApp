@@ -1,8 +1,10 @@
 
 import React from 'react';
-import './FourColdGrid.css';
+import './FourColGrid.css';
 
-const FourColdGrid = (props) => {
+const FourColGrid = (props) => {
+
+    
     const renderElements =  () => {
         const gridElements = props.children.map( (element,i) => {
             <div key={i} className="rmdb-grid-element">
@@ -10,6 +12,8 @@ const FourColdGrid = (props) => {
             </div>
         })
     }
+
+
 	return(
         <div className="rmdb-grid">
             { props.header && !props.loading? <h1>{props.header}</h1> : null}
@@ -20,4 +24,4 @@ const FourColdGrid = (props) => {
     )
 }
 
-export default FourColdGrid;
+export default FourColGrid;

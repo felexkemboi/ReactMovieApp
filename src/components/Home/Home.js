@@ -1,8 +1,8 @@
 import React,{ Component } from 'react';
 import { API_URL,API_KEY,IMAGE_BASE_URL,POSTER_SIZE,BACKDROP_SIZE } from '../../config';
 import HeroImage from '../elements/HeroImage/HeroImage';
-import SearchBar from   '../elements/SearchBar/SearchBar';
-import FourColdGrid from '../elements/FourColdGrid/FourColdGrid';
+import SearchBar from   '../elements/SearchBar /SearchBar';
+import FourColdGrid from '../elements/FourColGrid/FourColGrid';
 import MovieThumb from '../elements/MovieThumb/MovieThumb';
 import MovieThumbi from '../elements/MovieThumbi/MovieThumbi';
 import LoadMoreBtn from '../elements/LoadMoreBtn/LoadMoreBtn';
@@ -37,10 +37,10 @@ class Home extends Component{
 		})
 
 		if( searchTerm === ''){
-			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
+			endpoint = `${API_URL}movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
 			}
 		else{
-			endpoint = `$[API_URL]search/movie?api_key=${ API_KEY }&language=en-US&query=${ searchTerm}`;
+			endpoint = `${API_URL}search/movie?api_key=${ API_KEY }&language=en-US&query=${ searchTerm}`;
 		}
 		this.fetchItems(endpoint)
 	}
@@ -51,9 +51,9 @@ class Home extends Component{
 		this.setState({ loading:true });
 
 		if(this.state.searchTerm === ''){
-			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&page=${ this.state.currentPage + 1}`;
+			endpoint = `${API_URL}movie/popular?api_key=${ API_KEY }$language=en-US&page=${ this.state.currentPage + 1}`;
 		} else{
-			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }`;
+			endpoint = `${API_URL}movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }`;
 		}
 	}
 
@@ -63,12 +63,13 @@ class Home extends Component{
 			.then(result => result.json())
 			.then(result => {
 				this.setState({
-					movies:[...this.state.movies, ...result.results],
-					heroImage:this.state.heroImage	|| result.results[0],
+					movies: [...this.state.movies, ...result.results],
+					heroImage: this.state.heroImage	|| result.results[0],
 					loading:false,
 					currentPage:result.page,
 					totalPages:result.total_pages
-				})	
+				})
+				console.log(result)	
 			})
 	}
 
