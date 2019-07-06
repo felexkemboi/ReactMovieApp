@@ -41,7 +41,10 @@ class Home extends Component{
 		else{
 			endpoint = `$[API_URL]search/movie?api_key=${ API_KEY }&language=en-US&query=${ searchTerm}`;
 		}
+		this.fetchItems(endpoint)
 	}
+
+
 	LoadMoreItems = () => {
 		let endpoint = '';
 		this.setState({ loading:true });
@@ -52,6 +55,7 @@ class Home extends Component{
 			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }`;
 		}
 	}
+
 
 	fetchItems = (endpoint) => {
 			fetch(endpoint)
