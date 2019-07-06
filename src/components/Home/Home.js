@@ -16,23 +16,39 @@ class Home extends Component{
 		movies : [],
 		heroImage:null,
 		loading:false,
-		currentpage:0,
+		currentPage:0,
 		totalPages: 0,
 		searchTerm:''
 	}
 
 	componentDidMount(){
 		this.setState({ loading:true });
-		const endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US$page=1`;
+		const endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
 		this.fetchItems(endpoint);
-	}
+	}currentpage
 
+	LoadMoreItems = () => {
+		let endpoint = '';
+		this.setState({ loading:true });
+
+		if(this.state.searchTerm === ''){
+			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&page=${ this.state.currentPage + 1}`;
+		} else{
+			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }&`endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US$page=${ this.state.currentPage + 1}`;
+		}
+	}
 
 	fetchItems = (endpoint) => {
 			fetch(endpoint)
 			.then(result => result.json())
 			.then(result => {
-				console.log(result);
+				this.setState({
+					movies:[...this.state.movies, ...result.results],
+					heroImage:this.state.heroImage	|| result.results[0],
+					loading:false,
+					currentPage:result.page,
+					totalPages:result.total_pages
+				})	
 			})
 			}
 
