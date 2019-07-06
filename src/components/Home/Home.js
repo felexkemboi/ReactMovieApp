@@ -25,8 +25,16 @@ class Home extends Component{
 		this.setState({ loading:true });
 		const endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
 		this.fetchItems(endpoint);
-	}currentpage
-
+	} //currentpage
+	
+	searchItems = (searchTerm) => {
+		let endpoint = '';
+		this.setState({
+			movies : [],
+			loading: true,
+			searchTerm
+		})
+	}
 	LoadMoreItems = () => {
 		let endpoint = '';
 		this.setState({ loading:true });
@@ -34,7 +42,7 @@ class Home extends Component{
 		if(this.state.searchTerm === ''){
 			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&page=${ this.state.currentPage + 1}`;
 		} else{
-			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }&`endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US$page=${ this.state.currentPage + 1}`;
+			endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }`;
 		}
 	}
 
@@ -56,8 +64,15 @@ class Home extends Component{
 	render(){
 	    return (
 			<div className="rmdb-home">
-				< HeroImage />
-				< SearchBar/>
+				{ this.state.heroImage ?
+				<div>
+					< HeroImage
+						image={`${ IMAGE_BASE_URL}${BACKDROP_SIZE}${this.state.heroImage.backdrop_path}`}
+						title = { this.state.heroImage.original_title }
+						text =  { this.state.heroImage.overview }
+					/>
+					< SearchBar/>
+				</div> : null }
 				< MovieThumb/>
 				< MovieThumbi/>
 				< LoadMoreBtn/>
