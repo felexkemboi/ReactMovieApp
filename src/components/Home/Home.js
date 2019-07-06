@@ -23,11 +23,12 @@ class Home extends Component{
 
 	componentDidMount(){
 		this.setState({ loading:true });
-		const endpoint = `$[API_URL]movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
+		const endpoint = `${API_URL}movie/popular?api_key=${ API_KEY }&language=en-US&page=1`;
 		this.fetchItems(endpoint);
 	} //currentpage
 	
 	searchItems = (searchTerm) => {
+		console.log(searchTerm);
 		let endpoint = '';
 		this.setState({
 			movies : [],
@@ -82,7 +83,7 @@ class Home extends Component{
 						title = { this.state.heroImage.original_title }
 						text =  { this.state.heroImage.overview }
 					/>
-					< SearchBar/>
+					< SearchBar callback={this.searchItems}/>
 				</div> : null }
 				< MovieThumb/>
 				< MovieThumbi/>
