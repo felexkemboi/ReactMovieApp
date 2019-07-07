@@ -42,7 +42,7 @@ class Home extends Component{
 		else{
 			endpoint = `${API_URL}search/movie?api_key=${ API_KEY }&language=en-US&query=${ searchTerm}`;
 		}
-		this.fetchItems(endpoint)
+		
 	}
 
 
@@ -55,6 +55,8 @@ class Home extends Component{
 		} else{
 			endpoint = `${API_URL}movie/popular?api_key=${ API_KEY }$language=en-US&query=${ this.state.searchTerm }`;
 		}
+
+		this.fetchItems(endpoint);
 	}
 
 
